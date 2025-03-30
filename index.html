@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para o meu amor</title>
+    <style>
+        /* Importa as fontes do Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #000000, #5a0d25); /* Fundo gradiente preto-romântico */
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .love-things {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            margin: 40px auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+            width: 60%; /* Centraliza e ajusta o tamanho da seção */
+            color: #fff;
+        }
+
+        .love-things h2 {
+            font-size: 2.5em;
+            color: #f08080;
+            font-family: 'Great Vibes', cursive;
+            margin-bottom: 10px;
+        }
+
+        .enumeration {
+            text-align: center;
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+        }
+
+        .enumeration-item {
+            margin: 10px 0; /* Espaçamento reduzido */
+            font-size: 1.5em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .enumeration-item span {
+            background: #f08080;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 10px;
+        }
+
+        .enumeration-item p {
+            font-size: 1.3em;
+            margin: 0;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 10px;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+
+        .container {
+            width: 90%;
+            margin: auto;
+            display: none; /* Oculta inicialmente */
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Tela inicial */
+        .welcome-screen {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #5a0d25, #000000);
+        }
+
+        .welcome-button {
+            background: radial-gradient(circle, #ff5e5b, #ff0000);
+            color: #fff;
+            font-size: 1.5em;
+            font-weight: bold;
+            border: none;
+            border-radius: 50%;
+            padding: 20px 60px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(255, 0, 0, 0.7);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .welcome-button:hover {
+            transform: scale(1.1);
+            background: radial-gradient(circle, #ff9995, #ff5e5b);
+        }
+
+        #timer {
+            font-size: 2.3em;
+            margin-top: 20px;
+            padding: 15px 30px;
+            background: rgba(255, 0, 0, 0.3);
+            color: #fff;
+            display: inline-block;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .gallery-item {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(255, 0, 0, 0.7);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .gallery-item p {
+            margin-top: 15px;
+            font-size: 1.2em;
+        }
+
+        h1 {
+            font-size: 4em;
+            color: #f08080;
+            font-family: 'Great Vibes', cursive;
+        }
+
+        /* Estilo para o botão e texto adicional */
+        .love-text {
+            display: none; /* Oculta inicialmente */
+            margin-top: 20px;
+            font-size: 1.5em;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .show-button, .hide-button {
+            margin-top: 70px; /* Ajusta o botão um pouco para cima */
+            background-color: #ff5e5b;
+            color: #fff;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .show-button:hover, .hide-button:hover {
+            transform: scale(1.1);
+            background-color: #ff9995;
+        }
+
+        /* Espaço extra na página */
+        .spacer {
+            height: 150px; /* Adiciona mais espaço para ajustar o layout */
+        }
+    </style>
+</head>
+<body>
+    <!-- Tela inicial -->
+    <div class="welcome-screen">
+        <button class="welcome-button" onclick="showSite()">❤️ Clique aqui ❤️</button>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="container">
+        <h1>Para o meu amor</h1>
+        <p class="timer-title" style="font-size: 2.2em;">Tempo ao lado da minha princesa:</p>
+        <div id="timer">0 segundos</div>
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="foto1.jpg" alt="Foto 1">
+                <p> O dia do primeiro "Eu te amo", que nunca será apagado da memória, mesmo você querendo falar que também se amava aff.</p>
+            </div>
+            <div class="gallery-item">
+                <img src="foto2.jpg" alt="Foto 2">
+                <p> Essa é a minha foto preferida, você está simplesmente perfeita nela e eu estou com a jaqueta do Grêmio que você me deu, eu amo essa foto.</p>
+            </div>
+            <div class="gallery-item">
+                <img src="foto3.jpg" alt="Foto 3">
+                <p> Nossa primeira festa juntos, eu descobri no meio do caminho que não podia ir e quando cheguei em casa fiquei de castigo, mas aproveitei muito com você.</p>
+            </div>
+        </div>
+    <div class="love-things">
+        <h2>Coisas que eu amo em você</h2>
+        <div class="enumeration">
+            <div class="enumeration-item">
+                <span>1</span>
+                <p>Seu sorriso</p>
+            </div>
+            <div class="enumeration-item">
+                <span>2</span>
+                <p>O jeito que você me olha</p>
+            </div>
+            <div class="enumeration-item">
+                <span>3</span>
+                <p>Seu cabelo lindo</p>
+            </div>
+            <div class="enumeration-item">
+                <span>4</span>
+                <p>A sua risadinha</p>
+            </div>
+            <div class="enumeration-item">
+                <span>5</span>
+                <p>Seu abraço e seu beijo</p>
+            </div>
+            <div class="enumeration-item">
+                <span>6</span>
+                <p>A forma como você me apoia</p>
+            </div>
+            <div class="enumeration-item">
+                <span>7</span>
+                <p>Seu humor duvidoso</p>
+            </div>
+            <div class="enumeration-item">
+                <span>8</span>
+                <p>O som da sua voz</p>
+            </div>
+            <div class="enumeration-item">
+                <span>9</span>
+                <p>O brilho dos seus olhos</p>
+            </div>
+            <div class="enumeration-item">
+                <span>10</span>
+                <p>O seu amor</p>
+            </div>
+            <div class="enumeration-item">
+                <span>11</span>
+                <p>Esse seu jeitinho único</p>
+            </div>
+            <div class="enumeration-item">
+                <span>12</span>
+                <p>Sua bunda gigante</p>
+            </div>
+            <div class="enumeration-item">
+                <span>13</span>
+                <p>Os seus pés sujos</p>
+            </div>
+            <div class="enumeration-item">
+                <span>14</span>
+                <p>O jeito que você lida com as coisas</p>
+            </div>
+            <div class="enumeration-item">
+                <span>15</span>
+                <p>Sua companhia</p>
+            </div>
+            <div class="enumeration-item">
+                <span>16</span>
+                <p>O seu toque</p>
+            </div>
+            <div class="enumeration-item">
+                <span>17</span>
+                <p>Seu cheiro</p>
+            </div>
+            <div class="enumeration-item">
+                <span>18</span>
+                <p>O jeito que você se preocupa</p>
+            </div>
+            <div class="enumeration-item">
+                <span>19</span>
+                <p>As pequenas surpresas do dia a dia</p>
+            </div>
+            <div class="enumeration-item">
+                <span>20</span>
+                <p>O fato de cada dia eu me apaixonar mais por você</p>
+            </div>
+            <div class="enumeration-item">
+                <span>21</span>
+                <p>Os apelidos que eu dou pra voce hihihi</p>
+            </div>
+            <div class="enumeration-item">
+                <span>22</span>
+                <p>O jeito que você me apoia em momentos difíceis</p>
+            </div>
+            <div class="enumeration-item">
+                <span>23</span>
+                <p>O sorriso depois de um beijo</p>
+            </div>
+            <div class="enumeration-item">
+                <span>24</span>
+                <p>Nossas ligações</p>
+            </div>
+            <div class="enumeration-item">
+                <span>25</span>
+                <p>O seu entusiasmo com as coisas</p>
+            </div>
+            <div class="enumeration-item">
+                <span>26</span>
+                <p>Os seus pequenos gestos de amor</p>
+            </div>
+            <div class="enumeration-item">
+                <span>27</span>
+                <p>O "Vai dar tudo certo amor" que me tranquiliza</p>
+            </div>
+            <div class="enumeration-item">
+                <span>28</span>
+                <p>O fato de você conseguir me fazer sentir único</p>
+            </div>
+            <div class="enumeration-item">
+                <span>29</span>
+                <p>O seu sorriso bobo depois de me ver</p>
+            </div>
+            <div class="enumeration-item">
+                <span>30</span>
+                <p>Ver você feliz</p>
+            </div>
+            <div class="enumeration-item">
+                <span>31</span>
+                <p>O seu "Bom dia amor" que faz eu começar o dia bem</p>
+            </div>
+            <div class="enumeration-item">
+                <span>32</span>
+                <p>Quando você fica brava</p>
+            </div>
+            <div class="enumeration-item">
+                <span>33</span>
+                <p>O fato de você confiar em mim</p>
+            </div>
+            <div class="enumeration-item">
+                <span>34</span>
+                <p>Sua ironia</p>
+            </div>
+            <div class="enumeration-item">
+                <span>35</span>
+                <p>Quando você aperta minha bochecha</p>
+            </div>
+            <div class="enumeration-item">
+                <span>36</span>
+                <p>Sua paciência que você não tem</p>
+            </div>
+            <div class="enumeration-item">
+                <span>37</span>
+                <p>Você brava na tpm</p>
+            </div>
+            <div class="enumeration-item">
+                <span>38</span>
+                <p>Sua demora para se arrumar</p>
+            </div>
+            <div class="enumeration-item">
+                <span>39</span>
+                <p>Sua beleza, principalmente quando acorda bagunçada</p>
+            </div>
+            <div class="enumeration-item">
+                <span>40</span>
+                <p>Quando você deita no meu colo ou deixa eu deitar no seu</p>
+            </div>
+            <div class="enumeration-item">
+                <span>41</span>
+                <p>Suas unhas que sempre são maravilhosas</p>
+            </div>
+            <div class="enumeration-item">
+                <span>42</span>
+                <p>Sua mãozinha pequenininha</p>
+            </div>
+            <div class="enumeration-item">
+                <span>43</span>
+                <p>Os seus presentinhos feitos a mão</p>
+            </div>
+            <div class="enumeration-item">
+                <span>44</span>
+                <p>Quando você segura meu "bíceps" que eu não tenho</p>
+            </div>
+            <div class="enumeration-item">
+                <span>45</span>
+                <p>Quando a gente joga roblox</p>
+            </div>
+            <div class="enumeration-item">
+                <span>46</span>
+                <p>Você me dá espaço quando preciso, mas sempre está ao meu lado</p>
+            </div>
+            <div class="enumeration-item">
+                <span>47</span>
+                <p>Quando você faz planos para o nosso futuro</p>
+            </div>
+            <div class="enumeration-item">
+                <span>48</span>
+                <p>O jeito que você é estudiosa</p>
+            </div>
+            <div class="enumeration-item">
+                <span>49</span>
+                <p>Quando você me chama de "mo meu"</p>
+            </div>
+            <div class="enumeration-item">
+                <span>50</span>
+                <p>O fato de você confiar em mim</p>
+            </div>
+            <div class="enumeration-item">
+                <span>51</span>
+                <p>O seu ciúmes</p>
+            </div>
+            <div class="enumeration-item">
+                <span>52</span>
+                <p>A sua inteligência</p>
+            </div>
+            <div class="enumeration-item">
+                <span>53</span>
+                <p>Sua generosidade</p>
+            </div>
+            <div class="enumeration-item">
+                <span>54</span>
+                <p>Quando você cuida de mim</p>
+            </div>
+            <div class="enumeration-item">
+                <span>55</span>
+                <p>A sua presença</p>
+            </div>
+            <div class="enumeration-item">
+                <span>56</span>
+                <p>Porque você me ensina algo novo todos os dias</p>
+            </div>
+            <div class="enumeration-item">
+                <span>57</span>
+                <p>Como você acredita nos seus sonhos</p>
+            </div>
+            <div class="enumeration-item">
+                <span>58</span>
+                <p>A sua determinação</p>
+            </div>
+            <div class="enumeration-item">
+                <span>59</span>
+                <p>Você não conseguir guardar segredo e fazer surpresas</p>
+            </div>
+            <div class="enumeration-item">
+                <span>60</span>
+                <p>O fato de você ser a mulher com quem eu vou me casar</p>
+            </div>
+            <div class="enumeration-item">
+                <span>61</span>
+                <p>O fato de você me valorizar</p>
+            </div>
+            <div class="enumeration-item">
+                <span>62</span>
+                <p>Toda a sua família</p>
+            </div>
+            <div class="enumeration-item">
+                <span>63</span>
+                <p>A sua honestidade</p>
+            </div>
+            <div class="enumeration-item">
+                <span>64</span>
+                <p>Porque você sempre coloca amor no que faz</p>
+            </div>
+            <div class="enumeration-item">
+                <span>65</span>
+                <p>O jeito que você é lerdinha</p>
+            </div>
+            <div class="enumeration-item">
+                <span>66</span>
+                <p>O seu entusiasmo mesmo com as coisas simples</p>
+            </div>
+            <div class="enumeration-item">
+                <span>67</span>
+                <p>O jeito que você me respeita</p>
+            </div>
+            <div class="enumeration-item">
+                <span>68</span>
+                <p>A sua força gigantesca hihihi</p>
+            </div>
+            <div class="enumeration-item">
+                <span>69</span>
+                <p>👈Quando você faz esse número comigo</p>
+            </div>
+            <div class="enumeration-item">
+                <span>70</span>
+                <p>Porque você me faz ver o lado positivo das coisas</p>
+            </div>
+            <div class="enumeration-item">
+                <span>71</span>
+                <p>Porque você faz as noites que ficamos conversando até tarde serem especiais</p>
+            </div>
+            <div class="enumeration-item">
+                <span>72</span>
+                <p>O seu jeitinho curioso</p>
+            </div>
+            <div class="enumeration-item">
+                <span>73</span>
+                <p>Porque você sabe que não é "eu e você", somos nós</p>
+            </div>
+            <div class="enumeration-item">
+                <span>74</span>
+                <p>O fato de você não se importar com as coisas materiais</p>
+            </div>
+            <div class="enumeration-item">
+                <span>75</span>
+                <p>Porque você Lembra das coisas que eu falo (a maioria pelo menos)</p>
+            </div>
+            <div class="enumeration-item">
+                <span>76</span>
+                <p>Todos os nossos momentos juntos</p>
+            </div>
+            <div class="enumeration-item">
+                <span>77</span>
+                <p>Porque você respeita o meu tempo</p>
+            </div>
+            <div class="enumeration-item">
+                <span>78</span>
+                <p>Porque suas mensagens me alegram mesmo nos dias corridos</p>
+            </div>
+            <div class="enumeration-item">
+                <span>79</span>
+                <p>Porque você faz tudo parecer mais bonito</p>
+            </div>
+            <div class="enumeration-item">
+                <span>80</span>
+                <p>O seu jeito safadinho</p>
+            </div>
+            <div class="enumeration-item">
+                <span>81</span>
+                <p>O seu lado competitivo quando a gente joga</p>
+            </div>
+            <div class="enumeration-item">
+                <span>82</span>
+                <p>Porque você sempre me inclui em seus planos, mesmo os mais simples</p>
+            </div>
+            <div class="enumeration-item">
+                <span>83</span>
+                <p>Porque você está disposta a aprender coisas só para eu ficar feliz</p>
+            </div>
+            <div class="enumeration-item">
+                <span>84</span>
+                <p>O seu lado criativo incrível, principalmente nos seus presentes</p>
+            </div>
+            <div class="enumeration-item">
+                <span>85</span>
+                <p>Porque você sabe quando é hora de falar e quando é hora de ouvir</p>
+            </div>
+            <div class="enumeration-item">
+                <span>86</span>
+                <p>Porque a cada dia eu quero descobrir mais um pouco sobre você</p>
+            </div>
+            <div class="enumeration-item">
+                <span>87</span>
+                <p>Porque você celebra minhas conquistas como se fossem sua</p>
+            </div>
+            <div class="enumeration-item">
+                <span>88</span>
+                <p>Porque você nunca tem medo de mostrar quem realmente é</p>
+            </div>
+            <div class="enumeration-item">
+                <span>89</span>
+                <p>O jeito que você se cobra, sem precisar da validação dos outros, isso é incrível</p>
+            </div>
+            <div class="enumeration-item">
+                <span>90</span>
+                <p>Porque você se importa em me ver bem</p>
+            </div>
+            <div class="enumeration-item">
+                <span>91</span>
+                <p>O fato de você saber o seu valor e não aceitar o mínimo</p>
+            </div>
+            <div class="enumeration-item">
+                <span>92</span>
+                <p>Porque você tenta fazer as coisas, mesmo não sabendo nada, porque é isso que importa</p>
+            </div>
+            <div class="enumeration-item">
+                <span>93</span>
+                <p>O jeito que você cuida do Mano Clitas como se fosse nosso filho</p>
+            </div>
+            <div class="enumeration-item">
+                <span>94</span>
+                <p>Porque você sempre acha um tempo para mim</p>
+            </div>
+            <div class="enumeration-item">
+                <span>95</span>
+                <p>O fato de você valorizar tudo que construímos juntos</p>
+            </div>
+            <div class="enumeration-item">
+                <span>96</span>
+                <p>A paz que você me traz</p>
+            </div>
+            <div class="enumeration-item">
+                <span>97</span>
+                <p>Os seus vestidos, todos são muito lindos, principalmente os da FARM</p>
+            </div>
+            <div class="enumeration-item">
+                <span>98</span>
+                <p>Porque além do seu jeito incrível você é a garota que eu pedi para Deus, simplesmente absurda de linda</p>
+            </div>
+            <div class="enumeration-item">
+                <span>99</span>
+                <p>Porque acima de tudo, você é você</p>
+            </div>
+            <div class="enumeration-item">
+                <span>100</span>
+                <p>Simplesmente eu amo você toda</p>
+            </div>
+            <div class="enumeration-item">
+                <span>❤️</span>
+                <p>VOCÊ É PERFEITA</p>
+            </div>
+        </div>
+        <!-- Botão e texto -->
+        <div class="spacer"></div>
+        <button class="show-button" onclick="showText()">Textinho para meu amor</button>
+        <div class="love-text" id="love-text">
+            <p>Olha, eu podia muito bem começar esse texto falando "Oi meu amor" ou "Olá minha princesa", até porque você é tudo isso para mim, mas eu queria muito, muito mesmo falar o nome da mulher pela qual eu me apaixonei e continuo me apaixonando a cada dia. Então eu vou começar de um jeito que talvez você não goste, mas vai me fazer lembrar mais ainda para quem e porque eu estou escrevendo esse texto, com o fundo do meu coração.💙
+
+                Lara, eu não tenho dúvida do nosso amor e eu tenho certeza que você também não tem. Você sabe que eu poderia te dizer muitas coisas, muitas que sem dúvidas eu já te disse, mas eu acho que ações valem mais que palavras, então além de palavras bonitas, eu queria fazer algo a mais para mostrar que eu te amo muito e uma das maneiras que eu vi de demonstrar isso foi fazendo uma coisa diferente, algo fora do comum, algo que, na minha visão, é mais legal e interessante do que uma cartinha feita a mão. Não que uma cartinha feita a mão seja ruim, pelo contrário, tem muito sentimento envolvido, mas eu tenho certeza que você nunca ia imaginar que eu faria isso e eu acho que isso deixa a mensagem mais especial, ser uma surpresa que você não faz nem ideia. 
+                Eu pensei em fazer uma cartinha para você, sem dúvidas eu sei que você ia amar, mas uma cartinha para você, em um site só para você, não é mais legal?
+                
+                Lara eu queria que você soubesse que, por mais que seja seu aniversário, que eu não estou fazendo esse presente por isso, mas simplesmente pelo fato de você existir. Eu não preciso que chegue um dia ou uma ocasião especial para te lembrar o quanto você é especial para mim e o quanto é lindo ter você na minha vida, porque você é incrível para mim e eu não quero que você tenha dúvidas disso. Cada momento com você é um presente, muito obrigado por estar presente na minha vida, você faz cada dia se tornar mais especial, você não sabe o quanto é bom receber o SEU bom dia, quando eu estou voltando de algum lugar e eu sei que você está esperando uma mensagem para saber se eu cheguei bem, isso mostra que você se preocupa comigo e isso é muito importante e especial para mim.
+                
+                Então depois de botar os meus sentimentos para fora e deixar o meu coração assumir o controle, eu quero te desejar um feliz aniversário meu amor e, por mais que essa mensagem esteja sendo entrega no seu aniversário, ela vale para tudo. 
+                Eu fiz esse site pensando totalmente em você (até as cores para ficar mais romântico porque eu não gosto de vermelho 🙄) e você pode voltar para ver ele quando você quiser, vai ser até legal porque o contador vai ficar se atualizando e vai ser uma lembrança legal.
+                
+                Você sabe que eu não sou muito bom com as palavras e o texto ficou todo juntinho assim, mas eu juro que eu tentei e eu espero que você tenha gostado.
+                Parabéns minha princesa, eu te amo muitão!😘
+                
+                
+                Ass: João (Seu princípe)</p>
+            <button class="hide-button" onclick="hideText()">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showSite() {
+        document.querySelector('.welcome-screen').style.display = 'none';
+        document.querySelector('.container').style.display = 'block';
+    }
+
+    const startTime = new Date('2024-08-03T00:00:00');
+
+    function updateTimer() {
+        const currentTime = new Date();
+        const elapsedTime = Math.floor((currentTime - startTime) / 1000);
+
+        const years = Math.floor(elapsedTime / (3600 * 24 * 365));
+        const months = Math.floor((elapsedTime % (3600 * 24 * 365)) / (3600 * 24 * 30));
+        const days = Math.floor((elapsedTime % (3600 * 24 * 30)) / (3600 * 24));
+        const hours = Math.floor((elapsedTime % (3600 * 24)) / 3600);
+        const minutes = Math.floor((elapsedTime % 3600) / 60);
+        const seconds = elapsedTime % 60;
+
+        document.getElementById('timer').textContent = 
+            `${years} anos, ${months} meses, ${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos`;
+    }
+
+    setInterval(updateTimer, 1000);
+
+    function showText() {
+        document.getElementById('love-text').style.display = 'block';
+    }
+
+    function hideText() {
+        document.getElementById('love-text').style.display = 'none';
+    }
+</script>
+</body>
+</html>
